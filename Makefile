@@ -3,7 +3,7 @@ SRCDIR		= ./x86-simd-sort/src
 UTILS		= ./x86-simd-sort/utils
 SRCS		= $(wildcard $(SRCDIR)/*.hpp)
 CXXFLAGS	+= -I$(SRCDIR) -I$(UTILS)
-CXXFLAGS	+= -fPIC -shared -O3
+CXXFLAGS	+= -fPIC -shared -O5
 
 all : lib
 
