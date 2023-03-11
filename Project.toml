@@ -1,0 +1,8 @@
+name = "AVX512Sort"
+uuid = "de062522-ea2d-4356-9d0e-6886d29fbe2d"
+authors = ["Mitchell J. O'Sullivan <contact@mosullivan.au>"]
+version = "0.0.1"
+
+[compact]
+julia = "1.8"
+
