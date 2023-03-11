@@ -1,6 +1,9 @@
 module AVX512Sort
-
 export qsort!, pqsort!
+
+import Base: sort!, Algorithm, ForwardOrdering
+sort!(x::Vector{<:Real}, ::Algorithm, ::ForwardOrdering) = qsort!(x);
+sort!(x::Vector{<:Real}, ::Integer, ::Integer, p::PartialQuickSort, ::ForwardOrdering) = pqsort!(p.k, x);
 
 const librarypath = joinpath(@__DIR__, "..", "libjlavx512qsort.so")
 
