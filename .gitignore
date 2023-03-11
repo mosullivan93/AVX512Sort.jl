@@ -1,0 +1,4 @@
+# Ignore any build products
+*.so
+#.dll
+

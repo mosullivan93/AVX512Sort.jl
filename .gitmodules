@@ -1,0 +1,3 @@
+[submodule "x86-simd-sort"]
+	path = x86-simd-sort
+	url = https://github.com/mosullivan93/x86-simd-sort
