@@ -1,4 +1,8 @@
 # Ignore any build products
 *.so
-#.dll
+*.dll
+*.dylib
+
+# Ignore manifest
+Manifest.toml
 
