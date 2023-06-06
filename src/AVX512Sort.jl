@@ -1,19 +1,29 @@
 module AVX512Sort
-export qsort!, pqsort!
+export qsort!, pqsort!, AVX512QuickSort
 
-import Base: sort!, ForwardOrdering
-import Base.Sort: QuickSortAlg, defalg
-import Base.Sort.Float: fpsort!
-
-defalg(v::AbstractVector{<:Real}) = QuickSortAlg()
-fpsort!(v::AbstractVector{<:Real}, ::QuickSortAlg, ::ForwardOrdering) = sort!(v, -1, -1, QuickSortAlg(), ForwardOrdering())
-function sort!(x::AbstractVector{<:Real}, ::Integer, ::Integer, ::QuickSortAlg, ::ForwardOrdering)
+struct AVX512QuickSort <: Base.Sort.Algorithm; end
+function Base.sort!(x::AbstractVector{<:Real}, ::Integer, ::Integer, ::AVX512QuickSort, ord::Base.Order.ForwardOrdering)
     qsort!(x);
     return x;
 end
-function sort!(x::AbstractVector{<:Real}, ::Integer, ::Integer, p::PartialQuickSort, ::ForwardOrdering)
-    pqsort!(p.k, x);
-    return x;
+@static if VERSION < v"1.9-"
+    # Before Julia 1.9 there was a Float submodule which also needs to be told about this algorithm
+    Base.Sort.Float.fpsort!(v::AbstractVector{<:Real}, ::AVX512QuickSort, ::Base.Order.ForwardOrdering) = sort!(v, -1, -1, AVX512QuickSort(), Base.Order.ForwardOrdering())
+end
+
+macro override_builtin_sort()
+    return esc(quote
+        Base.Sort.defalg(v::AbstractVector{<:Real}) = AVX512QuickSort()
+        # Need this to override the optimisations present in Julia v1.9
+        function Base.Sort.partialsort!(x::AbstractVector{<:Real}, k::Union{Integer,OrdinalRange}, ::Base.Order.ForwardOrdering)
+            pqsort!(k, x);
+            return Base.Sort.maybeview(x, k);
+        end
+        function Base.sort!(x::AbstractVector{<:Real}, ::Integer, ::Integer, p::Base.Sort.PartialQuickSort, o::Base.Order.ForwardOrdering)
+            pqsort!(p.k, x);
+            return x;
+        end
+    end)
 end
 
 const librarypath = joinpath(@__DIR__, "..", "libjlavx512qsort.so")
