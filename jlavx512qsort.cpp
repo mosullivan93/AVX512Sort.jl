@@ -75,46 +75,82 @@ extern "C" void inplace_avx512_partialqsort_uint16(int64_t k, uint16_t *arr, int
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_double(int64_t kfrom, int64_t kto, double *arr, int64_t arrsize) {
-        avx512_qselect<double>(arr, kfrom-1, arrsize);
-        avx512_partial_qsort<double>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect<double>(arr, kfrom-1, arrsize);
+                avx512_partial_qsort<double>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort<double>(arr, kto, arrsize);
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_single(int64_t kfrom, int64_t kto, float *arr, int64_t arrsize) {
-        avx512_qselect<float>(arr, kfrom-1, arrsize);
-        avx512_partial_qsort<float>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect<float>(arr, kfrom-1, arrsize);
+                avx512_partial_qsort<float>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort<float>(arr, kto, arrsize);
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_half(int64_t kfrom, int64_t kto, uint16_t *arr, int64_t arrsize) {
-        avx512_qselect_fp16(arr, kfrom-1, arrsize);
-        avx512_partial_qsort_fp16(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect_fp16(arr, kfrom-1, arrsize);
+                avx512_partial_qsort_fp16(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort_fp16(arr, kto, arrsize);
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_int64(int64_t kfrom, int64_t kto, int64_t *arr, int64_t arrsize) {
-        avx512_qselect<int64_t>(arr, kfrom-1, arrsize);
-        avx512_partial_qsort<int64_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect<int64_t>(arr, kfrom-1, arrsize);
+                avx512_partial_qsort<int64_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort<int64_t>(arr, kto, arrsize);
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_int32(int64_t kfrom, int64_t kto, int32_t *arr, int64_t arrsize) {
-        avx512_qselect<int32_t>(arr, kfrom-1, arrsize);
-        avx512_partial_qsort<int32_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect<int32_t>(arr, kfrom-1, arrsize);
+                avx512_partial_qsort<int32_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort<int32_t>(arr, kto, arrsize);
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_int16(int64_t kfrom, int64_t kto, int16_t *arr, int64_t arrsize) {
-        avx512_qselect<int16_t>(arr, kfrom-1, arrsize);
-        avx512_partial_qsort<int16_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect<int16_t>(arr, kfrom-1, arrsize);
+                avx512_partial_qsort<int16_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort<int16_t>(arr, kto, arrsize);
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_uint64(int64_t kfrom, int64_t kto, uint64_t *arr, int64_t arrsize) {
-        avx512_qselect<uint64_t>(arr, kfrom-1, arrsize);
-        avx512_partial_qsort<uint64_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect<uint64_t>(arr, kfrom-1, arrsize);
+                avx512_partial_qsort<uint64_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort<uint64_t>(arr, kto, arrsize);
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_uint32(int64_t kfrom, int64_t kto, uint32_t *arr, int64_t arrsize) {
-        avx512_qselect<uint32_t>(arr, kfrom-1, arrsize);
-        avx512_partial_qsort<uint32_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect<uint32_t>(arr, kfrom-1, arrsize);
+                avx512_partial_qsort<uint32_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort<uint32_t>(arr, kto, arrsize);
 }
 
 extern "C" void inplace_avx512_partialrangeqsort_uint16(int64_t kfrom, int64_t kto, uint16_t *arr, int64_t arrsize) {
-        avx512_qselect<uint16_t>(arr, kfrom-1, arrsize);
-        avx512_partial_qsort<uint16_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        if (kfrom > 1)
+        {
+                avx512_qselect<uint16_t>(arr, kfrom-1, arrsize);
+                avx512_partial_qsort<uint16_t>(arr+kfrom, kto-kfrom, arrsize-kfrom);
+        } else
+                avx512_partial_qsort<uint16_t>(arr, kto, arrsize);
 }
